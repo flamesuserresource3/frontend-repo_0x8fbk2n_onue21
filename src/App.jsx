@@ -3,12 +3,20 @@ import ProductShowcase from "./components/ProductShowcase.jsx";
 import Benefits from "./components/Benefits.jsx";
 import Testimonials from "./components/Testimonials.jsx";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 function App() {
+  const { scrollY } = useScroll();
+  const headerBg = useTransform(scrollY, [0, 80], ["rgba(255,255,255,0.6)", "rgba(255,255,255,0.9)"]);
+  const headerShadow = useTransform(scrollY, [0, 80], ["0 0 0 rgba(0,0,0,0)", "0 8px 30px rgba(0,0,0,0.06)"]); 
+
   return (
     <div className="min-h-screen bg-white text-gray-900">
       {/* Top navigation */}
-      <header className="sticky top-0 z-20 w-full border-b border-gray-100 bg-white/80 backdrop-blur">
+      <motion.header
+        style={{ backgroundColor: headerBg, boxShadow: headerShadow }}
+        className="sticky top-0 z-20 w-full border-b border-gray-100 backdrop-blur"
+      >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <a href="#" className="flex items-center gap-2">
             <div className="grid h-8 w-8 place-items-center rounded-lg bg-sky-600 text-white">WC</div>
@@ -21,7 +29,7 @@ function App() {
             <a href="#contact" className="rounded-lg bg-gray-900 px-3 py-1.5 font-medium text-white hover:bg-gray-800">Contact</a>
           </nav>
         </div>
-      </header>
+      </motion.header>
 
       <main>
         <Hero />
